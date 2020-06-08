@@ -32,7 +32,13 @@ export default class PostsRepository implements IPostsRepository {
   public async findAll(): Promise<Post[]> {
     const posts = await this.client.post.findMany({
       include: {
-        author: true,
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
       },
     });
 
